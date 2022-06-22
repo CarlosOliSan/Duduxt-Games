@@ -9,7 +9,6 @@ import { Produto } from 'src/app/interface/produto';
   styleUrls: ['./produto.component.css']
 })
 export class ProdutoComponent implements OnInit {
-
   produto: Produto = {
     idProduto: 0,
     idCategoria: 0,
@@ -22,27 +21,26 @@ export class ProdutoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
-    ) { }
+    private http: HttpClient  
+  ) { }
 
   ngOnInit(): void {
     const url = "http://lucasreno.kinghost.net/loja/produto/";
     const urlProdutos = "http://lucasreno.kinghost.net/loja/produtos";
 
     this.http.get<any>(urlProdutos).subscribe(
-      resposta =>{
+      resposta => {
         this.produtos = resposta;
       }
-    )
+    );
 
     this.route.params.subscribe(
       params => {
-        // params["id"];
         this.http.get<any>(url+params["id"]).subscribe(
-          resposta=>{
+          resposta => {
             this.produto = resposta[0];
           }
-        )
+        );
       }
     );
   }
